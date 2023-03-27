@@ -3,7 +3,6 @@
 In this project, I have created a web scrapper which extracts data about Academic Research Papers related to AI from https://paperswithcode.com/ and toots them on Mastodon.
 
 ## Initial Setup:
-This repo currently contains the starter files.
 
 Clone repo and create a virtual environment
 ```
@@ -43,5 +42,5 @@ $ (venv) streamlit run main.py
 
 This is will redirect to the localhost in the browser, where you can start interacting with the app by clicking on the type of research paper (Trending/Latest) you want to view and toot.
 
-![Alt Text]()
+![Alt Text](https://github.com/devashishk99/Academic-Paper-Scrapper/blob/main/image.png)
 
