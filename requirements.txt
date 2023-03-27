@@ -1,0 +1,8 @@
+regex
+requests
+bs4
+Mastodon.py
+streamlit
+lxml
+nltk
+textblob
