@@ -23,7 +23,7 @@ Install dependencies
 ```
 $ pip install -r requirement.txt 
 ```
-Install xml library (For Macs)
+Install lxml library (For Macs)
 ```
 $ STATIC_DEPS=true pip install lxml
 ```
