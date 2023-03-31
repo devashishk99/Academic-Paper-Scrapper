@@ -12,6 +12,8 @@ class MastodonBot():
 
     # returns object having access to Mastodon account
     def connect_to_mastodon_OAuth(self):
+        if not ACCESS_TOKEN:
+            return 0
         mastodon = Mastodon(
             access_token = ACCESS_TOKEN,
             api_base_url = 'https://mastodon.social/'

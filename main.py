@@ -8,6 +8,12 @@ import time
 scrappy = Scraper()  # instantiating the scrapper object
 mBot = MastodonBot() # instantiating the mastodon object
 
+botFlag = False
+
+if not mBot.connect_to_mastodon_OAuth():
+    botFlag = True
+    st.error('Please register an app on Mastodon and add ACCESS TOKEN!')
+
 def tootPapers(papers):
     star_emoji            = u'\U00002B50'
     paper_emojj           = u'\U0001F4C4'
@@ -45,9 +51,9 @@ st.caption('Click one of the following to get corresponding results:')
 # splitting screen into 2 columns
 col1, col2 = st.columns([1,1])
 with col1:
-    trending = st.button("Trending" ) # trending papers button
+    trending = st.button("Trending", disabled=botFlag) # trending papers button
 with col2:
-    latest = st.button("Latest") # latest papers button
+    latest = st.button("Latest", disabled=botFlag) # latest papers button
 
 
 with st.spinner("Please wait.."): # gives user feedback as data is scrapped
