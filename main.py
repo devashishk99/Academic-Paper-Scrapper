@@ -10,10 +10,6 @@ mBot = MastodonBot() # instantiating the mastodon object
 
 botFlag = False
 
-if not mBot.connect_to_mastodon_OAuth():
-    botFlag = True
-    st.error('Please register an app on Mastodon and add ACCESS TOKEN!')
-
 def tootPapers(papers):
     star_emoji            = u'\U00002B50'
     paper_emojj           = u'\U0001F4C4'
@@ -46,6 +42,19 @@ def tootPapers(papers):
     
 st.title('Academic Paper Scrapper') 
 st.info("Displays the top 10 AI research papers and toots them on Mastodon.")
+
+option = st.selectbox(
+    'Do you want to post the results on your Mastodon app? Click No for view-only mode',
+    ('No', 'Yes'))
+
+if option == 'No': # if No then the flag to post on Mastodon is disabled
+    postFlag = False
+elif option == 'Yes':  #if Yes then the flag to post on Mastodon is enabled
+    postFlag = True
+    if not mBot.connect_to_mastodon_OAuth(): # since post flag is enabled check if ACCESS TOKEN exists 
+        botFlag = True
+        st.error('Please register an app on Mastodon and add ACCESS TOKEN!', icon='🚨')
+
 st.caption('Click one of the following to get corresponding results:')
 
 # splitting screen into 2 columns
@@ -59,11 +68,11 @@ with col2:
 with st.spinner("Please wait.."): # gives user feedback as data is scrapped
     papers = [] # list to hold the papers data
     if trending:
-        st.session_state["trending"] = not st.session_state["trending"]
+        st.session_state["trending"] = True
         print('Trending papers...')
         papers = scrappy.scrapTrending() # gets the trending papers
     elif latest:
-        st.session_state["latest"] = not st.session_state["latest"]
+        st.session_state["latest"] = True
         print('Latest papers..')
         papers = scrappy.scrapLatest()  # gets the latest papers    
 
@@ -76,5 +85,7 @@ with st.spinner("Please wait.."): # gives user feedback as data is scrapped
     papers_df['keywords'] = abstract_keywords # adding the keywords as a new column to DataFrame
     if not papers_df.empty:
         st.table(papers_df) # displays the final paper data
-        tootPapers(papersUpd) # toots papers 
+        if postFlag:
+            print('Im in')
+            tootPapers(papersUpd) # toots papers 
        
