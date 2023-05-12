@@ -21,7 +21,7 @@ venv\Scripts\activate
 ```
 Install dependencies
 ```
-$ pip install -r requirement.txt 
+$ pip install -r requirements.txt 
 ```
 Install lxml library (For Macs)
 ```
